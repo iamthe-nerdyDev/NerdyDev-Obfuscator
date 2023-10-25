@@ -1,30 +1,42 @@
-var JavaScriptObfuscator = require("javascript-obfuscator");
+const express = require("express");
+const JavaScriptObfuscator = require("javascript-obfuscator");
 
-var obfuscationResult = JavaScriptObfuscator.obfuscate(
-  `
-        (function(){
-            var variable1 = '5' - 3;
-            var variable2 = '5' + 3;
-            var variable3 = '5' + - '2';
-            var variable4 = ['10','10','10','10','10'].map(parseInt);
-            var variable5 = 'foo ' + 1 + 1;
-            console.log(variable1);
-            console.log(variable2);
-            console.log(variable3);
-            console.log(variable4);
-            console.log(variable5);
-        })();
-    `,
-  {
-    compact: false,
-    controlFlowFlattening: true,
-    controlFlowFlatteningThreshold: 1,
-    numbersToExpressions: true,
-    simplify: true,
-    stringArrayShuffle: true,
-    splitStrings: true,
-    stringArrayThreshold: 1,
+const app = express();
+const port = 8080;
+
+app.use(express.json());
+
+app.post("/obfuscate", (req, res) => {
+  try {
+    const { code } = req.body;
+
+    if (!code || code == "") {
+      return res
+        .status(200)
+        .json({ status: false, message: "Code cannot be empty" });
+    }
+
+    var obfuscationResult = JavaScriptObfuscator.obfuscate(code, {
+      compact: false,
+      controlFlowFlattening: true,
+      controlFlowFlatteningThreshold: 1,
+      numbersToExpressions: true,
+      simplify: true,
+      stringArrayShuffle: true,
+      splitStrings: true,
+      stringArrayThreshold: 1,
+    });
+
+    const obfuscatedFinalResult = obfuscationResult.getObfuscatedCode();
+
+    return res.status(200).json({
+      status: true,
+      message: "done",
+      data: { code: obfuscatedFinalResult },
+    });
+  } catch (e) {
+    return res.status(500).json({ status: false, message: e.message });
   }
-);
+});
 
-console.log(obfuscationResult.getObfuscatedCode());
+app.listen(port, () => console.log(`Express app running on port ${port}!`));
