@@ -1,0 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --bg-main: darkorange;
+}
+
+.container {
+  width: 95%;
+  margin: 0% auto;
+  max-width: 50rem;
+  padding: 4rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  border: none;
+}
+
+.header {
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    flex-direction: column;
+  }
+}
+
+.header img {
+  width: 6rem;
+  height: 6rem;
+  border: 1px solid #ccc;
+  opacity: 0.8;
+  padding: 1rem;
+}
+
+.header h1 {
+  font-size: calc(1vw + 1.5rem);
+  font-weight: 300;
+  margin-bottom: 0.1rem;
+  line-height: 150%;
+}
+
+.header hr {
+  width: calc(1vw + 3rem);
+  margin-bottom: 1.2rem;
+}
+
+.header p {
+  color: #555;
+  opacity: 0.75;
+  font-size: 0.95rem;
+  line-height: 200%;
+}
+
+.supported-languages {
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.supported-languages p,
+.supported-languages span {
+  text-transform: uppercase;
+  opacity: 0.4;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.supported-languages > div {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.supported-languages img {
+  width: 1.6rem;
+}
+
+.upload-box {
+  margin-bottom: 3rem;
+  border: 1px solid #ccc;
+}
+
+.upload-box .tabs {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.upload-box .tabs p {
+  cursor: pointer;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+  padding: 0.98rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-bottom: 1px solid #ccc;
+}
+
+.upload-box .tabs p.active {
+  background-color: #eee;
+}
+
+.upload-box .tabs p:first-child {
+  border-right: 1px solid #ccc;
+}
+
+@media screen and (max-width: 767px) {
+  .upload-box .tabs {
+    flex-direction: column;
+  }
+  .upload-box .tabs p {
+    border-right: none !important;
+  }
+}
+
+.code-block {
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.code-block textarea,
+.code-block select {
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 1.4rem;
+  font-size: 0.94rem;
+  resize: none;
+  margin-bottom: 1rem;
+  outline: none;
+  transition: 0.1s ease-in-out;
+}
+
+.code-block select {
+  font-size: 0.9rem;
+  padding: 0.88rem 1.4rem;
+  cursor: pointer;
+  color: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 46%;
+}
+
+.code-block textarea:focus,
+.code-block select:focus {
+  border: 1px solid skyblue;
+}
+
+.code-block textarea::placeholder {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.upload-block {
+  width: 100%;
+  padding: 1.5rem;
+}
+
+.upload-block > div {
+  border: 1px dashed #ccc;
+  padding: 4rem 1rem;
+  cursor: pointer;
+}
+
+.upload-block > div > p {
+  text-align: center;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #555;
+  opacity: 0.8;
+  margin-bottom: 2.4rem;
+  line-height: 170%;
+}
+
+.upload-block > div > div {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  width: 100%;
+  justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+  .upload-block > div > div {
+    flex-direction: column;
+  }
+}
+
+.upload-block > div > div img {
+  width: 3.5rem;
+  opacity: 0.4;
+}
+
+.upload-block > div > div > div {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.upload-block > div > div > div hr {
+  width: 3rem;
+}
+
+.upload-block > div > div > div span {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+button {
+  background-color: skyblue;
+  border: 2px solid #000;
+  border-radius: 100px;
+  padding: 0.9rem 2.3rem;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+button:disabled {
+  color: inherit;
+  opacity: 0.7;
+  cursor: no-drop;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
