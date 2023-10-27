@@ -1,3 +1,17 @@
+/*
+ _   _              _       ____             
+| \ | | ___ _ __ __| |_   _|  _ \  _____   __
+|  \| |/ _ \ '__/ _` | | | | | | |/ _ \ \ / /
+| |\  |  __/ | | (_| | |_| | |_| |  __/\ V / 
+|_| \_|\___|_|  \__,_|\__, |____/ \___| \_/  
+                      |___/                  
+  ___  _      __                     _             
+ / _ \| |__  / _|_   _ ___  ___ __ _| |_ ___  _ __ 
+| | | | '_ \| |_| | | / __|/ __/ _` | __/ _ \| '__|
+| |_| | |_) |  _| |_| \__ \ (_| (_| | || (_) | |   
+ \___/|_.__/|_|  \__,_|___/\___\__,_|\__\___/|_| 
+ */
+
 import { useState } from "react";
 
 import "./App.css";
@@ -5,8 +19,9 @@ import "./App.css";
 import logo from "./assets/logo.png";
 
 import php from "./assets/php.png";
-import python from "./assets/python.png";
 import js from "./assets/js.png";
+import html from "./assets/html.png";
+import css from "./assets/css.png";
 
 import Loader from "./Loader";
 
@@ -22,7 +37,6 @@ const App = () => {
   const introFns = [
     '// Sample JavaScript code\n\nfunction hi() {\n\tconsole.log("Hello World!");\n}\n\nhi();',
     '// Sample PHP code\n\n<?php\n\tfunction hi() {\n\t\techo "Hello World!";\n\t}\n\n\thi();\n?>',
-    '// Sample Python code\n\ndef hi():\n\tprint("Hello World!")\n\nhi()',
   ];
 
   const submitForm = (e: any) => {
@@ -55,8 +69,9 @@ const App = () => {
           <span>|</span>
           <div>
             <img src={php} alt="php" />
-            <img src={python} alt="python" />
             <img src={js} alt="js" />
+            <img src={css} alt="css" />
+            <img src={html} alt="html" />
           </div>
         </div>
 
@@ -88,7 +103,8 @@ const App = () => {
                 </option>
                 <option value="js">JavaScript</option>
                 <option value="php">PHP</option>
-                <option value="python">Python</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
               </select>
               <textarea
                 name="code"
