@@ -77,7 +77,7 @@ const App = () => {
     const formData = new FormData();
     formData.append("obfuscate", "true");
     formData.append("language", language);
-    formData.append("code", code);
+    formData.append("code", `${code}`);
 
     try {
       const response = await fetch(VITE_API_ENDPOINT, {
@@ -115,6 +115,7 @@ const App = () => {
 
   const uploadFile = async (file: any) => {
     const formData = new FormData();
+    formData.append("obfuscate", "true");
     formData.append("file", file);
 
     try {

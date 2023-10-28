@@ -19,7 +19,7 @@ class Obfuscate
      *
      * @var string
      */
-    public $base_url = "bla";
+    public $base_url = "http://localhost:8000";
 
     /**
      * __construct

@@ -79,10 +79,8 @@ function extractZip($zipFileName, $newFolderName): bool|string
 {
     $zip = new ZipArchive();
 
-    $zipFileName = "zips/" . $zipFileName;
-
-    if ($zip->open($zipFileName) === TRUE) {
-        $extractPath = 'extracted/' . $newFolderName . '/';
+    if ($zip->open($zipFileName) === true) {
+        $extractPath = 'files/extracted/' . $newFolderName . '/';
 
         $zip->extractTo($extractPath);
 
@@ -154,21 +152,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "js"
         ];
 
-        if (isset($_FILES["zip"]) && $_FILES["zip"]["error"] === UPLOAD_ERR_OK) {
-            $zipFileName = pathinfo($_FILES["zip"]["name"], PATHINFO_FILENAME);
-            $zipFileExt = pathinfo($_FILES["zip"]["name"], PATHINFO_EXTENSION);
-
-            if (strtolower($zipFileExt) !== "zip") {
-                outputJSON(false, "Upload a .zip file please");
-            }
-
-            $newZipFileName = "files/zips/" . $zipFileName . time() . "." . $zipFileExt;
-
-            move_uploaded_file($_FILES["zip"]["tmp_name"], $newZipFileName);
-
-            outputJSON(false, "Unable to complete process");
-        }
-
         if (isset($_FILES["file"]) && $_FILES["file"]["error"] === UPLOAD_ERR_OK) {
             $fileName = pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME);
             $fileExt = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
@@ -177,12 +160,44 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 !in_array(
                     strtolower($fileExt),
                     $allowedExtensions
-                ) || strtolower($fileExt) === "zip"
+                )
             ) {
                 outputJSON(false, "Upload a .css, .js, .html or .php file please");
             }
 
             $newFileName = $fileName . time() . "." . $fileExt;
+
+            if (strtolower($fileExt) === "zip") {
+                $newZipFileName = "files/zips/" . $newFileName;
+
+                if (move_uploaded_file($_FILES["file"]["tmp_name"], $newZipFileName)) {
+                    $folderLocation = extractZip(
+                        $newZipFileName,
+                        "Obfuscated-" . $newFileName
+                    );
+
+                    if (is_bool($folderLocation)) {
+                        outputJSON(false, "Unable to extract zip contents");
+                    }
+
+                    if (is_dir($folderLocation)) {
+                        $contents = scandir($folderLocation);
+
+                        // foreach ($contents as $item) {
+                        //     if ($item != '.' && $item != '..') {
+                        //         echo $item . "<br>";
+                        //     }
+                        // }
+
+                        outputJSON(true, "fetched", ["content" => $contents]);
+                    }
+
+                    outputJSON(false, "Directory not found");
+                }
+
+                outputJSON(false, "Unable to complete process");
+            }
+
             $fullFilePath = "files/single/" . $newFileName;
 
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $fullFilePath)) {
