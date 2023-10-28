@@ -46,7 +46,7 @@ class Obfuscate
      * @param  mixed $code
      * @return bool|string
      */
-    public function obfuscateJS($code): bool|string
+    public function obfuscateJS($code)
     {
         if ($code && !empty($code)) {
             $response = $this->postRequest($this->endpoint, ["code" => $code]);
@@ -130,7 +130,7 @@ class Obfuscate
         $url,
         $data,
         $header = true
-    ): array|string {
+    ) {
         $jsonData = $data;
 
         if ($header) {

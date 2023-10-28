@@ -85,7 +85,7 @@ function outputJSON(
  * @param  string $newFolderName
  * @return bool|string
  */
-function extractZip($zipFileName, $newFolderName): bool|string
+function extractZip($zipFileName, $newFolderName)
 {
     $zip = new ZipArchive();
 
@@ -109,7 +109,7 @@ function extractZip($zipFileName, $newFolderName): bool|string
  * @param  mixed $code
  * @return string|null
  */
-function doObfuscate($language, $code): string|null
+function doObfuscate($language, $code): mixed
 {
     global $Obfuscate;
 

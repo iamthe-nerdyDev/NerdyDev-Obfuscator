@@ -107,7 +107,7 @@ class ObfuscatorPHP
 	 * @param  mixed $file
 	 * @return ObfuscatorPHP|bool
 	 */
-	public function file($file): ObfuscatorPHP|bool
+	public function file($file)
 	{
 		if (file_exists($file)) {
 			$this->code = file_get_contents($file);
@@ -122,7 +122,7 @@ class ObfuscatorPHP
 	 * @param  mixed $code
 	 * @return ObfuscatorPHP|bool
 	 */
-	public function populateCode($code): ObfuscatorPHP|bool
+	public function populateCode($code)
 	{
 		if ($code && !empty($code)) {
 			$this->code = $code;
@@ -137,7 +137,7 @@ class ObfuscatorPHP
 	 * @param  mixed $text
 	 * @return ObfuscatorPHP|bool|string
 	 */
-	public function code($text = null): ObfuscatorPHP|bool|string
+	public function code($text = null)
 	{
 		if (empty($text)) {
 			return $this->code;
@@ -246,7 +246,7 @@ class ObfuscatorPHP
 	 * @param  mixed $class
 	 * @return array|string|null
 	 */
-	private function generate_var($var, $function = null, $class = null): array|string|null
+	private function generate_var($var, $function = null, $class = null): mixed
 	{
 		while (empty($string)) {
 			$string = "\$_{$this->random_string()}";
@@ -331,7 +331,7 @@ class ObfuscatorPHP
 	 *
 	 * @return ObfuscatorPHP|string|bool
 	 */
-	public function pack(): ObfuscatorPHP|string|bool
+	public function pack()
 	{
 		if (empty($this->tokens)) {
 			return false;
@@ -536,7 +536,7 @@ class ObfuscatorPHP
 	 *
 	 * @return ObfuscatorPHP|bool
 	 */
-	private function tokenize(): ObfuscatorPHP|bool
+	private function tokenize()
 	{
 		if (empty($this->code)) {
 			return false;
