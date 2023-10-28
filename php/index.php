@@ -145,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (
         isset($_POST['obfuscate'])
-        && is_bool($_POST['obfuscate'])
+        && !empty($_POST['obfuscate'])
     ) {
         $allowedExtensions = [
             "zip",

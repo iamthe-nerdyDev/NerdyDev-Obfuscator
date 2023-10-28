@@ -191,10 +191,40 @@ hr {
   padding: 1.5rem;
 }
 
+.upload-loader {
+  cursor: default !important;
+}
+
+.upload-loader img {
+  margin: 0% auto;
+  display: block;
+  width: 4rem;
+  margin-bottom: 2rem;
+}
+
 .upload-block > div {
   border: 1px dashed #ccc;
   padding: 4rem 1rem;
   cursor: pointer;
+  position: relative;
+}
+
+.upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1rem;
 }
 
 .upload-block > div > p {
@@ -208,12 +238,17 @@ hr {
   line-height: 170%;
 }
 
+.upload-block > div > p:last-child {
+  margin-bottom: 0rem;
+}
+
 .upload-block > div > div {
   display: flex;
   align-items: center;
   gap: 1.8rem;
   width: 100%;
   justify-content: center;
+  margin-bottom: 3rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -276,4 +311,63 @@ footer {
   font-size: 0.8rem;
   font-weight: 600;
   margin-top: 2rem;
+}
+
+.back-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 4rem;
+}
+
+.back-btn div {
+  width: 2.8rem;
+  height: 2.8rem;
+  background-color: #eeee;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.back-btn p {
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+}
+
+.download-area img {
+  width: 6rem;
+  height: 6rem;
+  border: 1px solid #ccc;
+  opacity: 0.8;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.download-area h1 {
+  font-size: calc(1vw + 1.5rem);
+  font-weight: 300;
+  margin-bottom: 0.1rem;
+  line-height: 150%;
+  margin-bottom: 1rem;
+}
+
+.download-area h1 span {
+  font-weight: 700;
+  color: var(--bg-main);
+}
+
+.download-area .info {
+  font-size: 0.96rem;
+  width: 100%;
+  max-width: 40rem;
+  margin-bottom: 2rem;
+  line-height: 190%;
+  color: #555;
 }
