@@ -26,7 +26,7 @@ dist-ssr
 *.sw?
 
 
-/php/files/extracted/*
+/php/files/extract/*
 /php/files/o-zips/*
-/php/files/single/*
-/php/files/zips/*
+/php/files/single-file/*
+/php/files/zip/*
