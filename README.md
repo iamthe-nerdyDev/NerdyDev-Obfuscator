@@ -12,14 +12,17 @@ This project is currently in development and open for imporovement but can still
 
 ## Project Screen Shot(s)
 
-![Landing Screen](https://github.com/iamthe-nerdyDev/NerdyDev-Obfuscator/assets/141498118/bb88c808-941c-4fce-a430-401c8e0cdfa4)
+| ![Landing Screen](https://github.com/iamthe-nerdyDev/NerdyDev-Obfuscator/assets/141498118/bb88c808-941c-4fce-a430-401c8e0cdfa4) | 
+|:--:| 
+| *Landing Screen* |
 
+| ![Project Upload Screen](https://github.com/iamthe-nerdyDev/NerdyDev-Obfuscator/assets/141498118/ccd9d9ce-1540-47bb-9148-42cb3ba74790) | 
+|:--:| 
+| *Project Upload Screen* |
 
-![Project Upload Screen](https://github.com/iamthe-nerdyDev/NerdyDev-Obfuscator/assets/141498118/ccd9d9ce-1540-47bb-9148-42cb3ba74790)
-
-
-![Obfuscated Project Download Screen](https://github.com/iamthe-nerdyDev/NerdyDev-Obfuscator/assets/141498118/9a47288c-8170-4ef2-bc67-b722adb7cc99)
-
+| ![Obfuscated Project Download Screen](https://github.com/iamthe-nerdyDev/NerdyDev-Obfuscator/assets/141498118/9a47288c-8170-4ef2-bc67-b722adb7cc99) | 
+|:--:| 
+| *Obfuscated Project Download Screen* |
 
 ## Installation and Setup Instructions
 
