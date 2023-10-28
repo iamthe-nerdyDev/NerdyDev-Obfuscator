@@ -125,7 +125,7 @@ class ObfuscatorPHP
 	public function populateCode($code): ObfuscatorPHP|bool
 	{
 		if ($code && !empty($code)) {
-			$this->code = file_get_contents($code);
+			$this->code = $code;
 		}
 
 		return $this->tokenize();
@@ -446,12 +446,15 @@ class ObfuscatorPHP
 						if ($this->tokens[$token_key - 1][1] == '$this') {
 							if ($this->function && $this->class) {
 								$this->tokens[$token_key - 1][1] = '$' . $this->encode_string('this');
+
 								if ($this->tokens[$token_key + 2] == '(')
 									; // Function, leave it alone.
 								else
 									$this->tokens[$token_key + 1][1] = $this->generate_var($this->tokens[$token_key + 1][1], null, $this->class);
-							} else
+
+							} else {
 								die("\nPHP syntax error found: \$this referenced outside of a class.\n");
+							}
 						} else {
 							if ($this->tokens[$token_key + 2] == '(')
 								; // Function, leave it alone.

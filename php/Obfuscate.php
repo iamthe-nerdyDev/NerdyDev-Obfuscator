@@ -19,7 +19,7 @@ class Obfuscate
      *
      * @var string
      */
-    public $base_url = "http://localhost:8000";
+    public $base_url;
 
     /**
      * __construct
@@ -31,10 +31,12 @@ class Obfuscate
     {
         if ($env == "dev") {
             $this->endpoint = "http://localhost:8080/obfuscate";
+            $this->base_url = "http://localhost:8000";
         }
 
         if ($env == "prod") {
             $this->endpoint = "https://obfuscator-node.onrender.com/obfuscate";
+            $this->base_url = "http://my-url.com";
         }
     }
 
@@ -103,15 +105,17 @@ class Obfuscate
      * obfuscatePHP
      *
      * @param  mixed $code
-     * @return ObfuscatorPHP|bool
+     * @return string
      */
-    public function obfuscatePHP($code): ObfuscatorPHP|bool
+    public function obfuscatePHP($code): string
     {
-        include __DIR__ . '/php-obfuscator/obfuscator.php';
+        include_once __DIR__ . '/ObfuscatorPHP.php';
 
         $packer = new ObfuscatorPHP();
 
-        return $packer->populateCode($code)->pack()->code();
+        $obfuscatedCode = $packer->populateCode($code)->pack()->code();
+
+        return $obfuscatedCode;
     }
 
     /**

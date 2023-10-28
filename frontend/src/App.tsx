@@ -35,6 +35,8 @@ if (!VITE_API_ENDPOINT) {
   throw new Error(".env variable missing: VITE_API_ENDPOINT");
 }
 
+const maxFileSize = 7 * 1024 * 1024;
+
 const App = () => {
   const year = new Date().getFullYear();
 
@@ -113,7 +115,12 @@ const App = () => {
     await uploadFile(file);
   };
 
-  const uploadFile = async (file: any) => {
+  const uploadFile = async (file: File) => {
+    if (file.size > maxFileSize) {
+      alert("File size should not be more than 7MB");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("obfuscate", "true");
     formData.append("file", file);

@@ -19,6 +19,16 @@ header("Content-Type: application/json");
 
 include_once __DIR__ . "/Obfuscate.php";
 
+$allowedExtensions = [
+    "zip",
+    "html",
+    "css",
+    "js",
+    "php"
+];
+
+$currentTime = time();
+
 $Obfuscate = new Obfuscate();
 
 /**
@@ -133,6 +143,82 @@ function doObfuscate($language, $code): string|null
     return $obfuscatedCode;
 }
 
+/**
+ * obfuscateFolder
+ *
+ * @param  string $location
+ * @return bool
+ */
+function obfuscateFolder($location): bool
+{
+    global $allowedExtensions;
+
+    if (is_dir($location)) {
+        $contents = scandir($location);
+
+        if (count($contents) <= 0) {
+            return false;
+        }
+
+        foreach ($contents as $item) {
+            if ($item != '.' && $item != '..') {
+                $path = $location . '/' . $item;
+
+                if (is_dir($path)) {
+                    obfuscateFolder($path);
+                } else {
+                    $extension = strtolower(pathinfo($item, PATHINFO_EXTENSION));
+
+                    if (
+                        in_array($extension, $allowedExtensions)
+                        && $extension != "zip"
+                    ) {
+                        $code = file_get_contents($path);
+
+                        $obfuscatedCode = doObfuscate($extension, $code);
+
+                        file_put_contents($path, $obfuscatedCode);
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * zipFolder
+ *
+ * @param  mixed $location
+ * @param  mixed $filename
+ * @return bool|string
+ */
+function zipFolder($location, $filename = null)
+{
+    global $currentTime;
+
+    require_once 'ZipArchiver.php';
+
+    $zipper = new ZipArchiver;
+
+    if ($filename === null) {
+        $filename = "Obfuscated-" . $currentTime . ".zip";
+    }
+
+    $zipFileName = 'files/o-zips/' . $filename;
+
+    $zip = $zipper->zipDir($location, $zipFileName);
+
+    if ($zip) {
+        return $zipFileName;
+    }
+
+    return false;
+}
+
 
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     returnHeader(200);
@@ -145,13 +231,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         isset($_POST['obfuscate'])
         && !empty($_POST['obfuscate'])
     ) {
-        $allowedExtensions = [
-            "zip",
-            "html",
-            "css",
-            "js"
-        ];
-
         if (isset($_FILES["file"]) && $_FILES["file"]["error"] === UPLOAD_ERR_OK) {
             $fileName = pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME);
             $fileExt = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
@@ -165,7 +244,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 outputJSON(false, "Upload a .css, .js, .html or .php file please");
             }
 
-            $newFileName = $fileName . time() . "." . $fileExt;
+            $maxFileSize = 7 * 1024 * 1024;
+
+            if ($_FILES['file']['size'] > $maxFileSize) {
+                outputJSON(false, "File size should not be more than 7MB");
+            }
+
+            $newFileName = $fileName . "-" . $currentTime . "." . $fileExt;
 
             if (strtolower($fileExt) === "zip") {
                 $newZipFileName = "files/zips/" . $newFileName;
@@ -173,23 +258,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 if (move_uploaded_file($_FILES["file"]["tmp_name"], $newZipFileName)) {
                     $folderLocation = extractZip(
                         $newZipFileName,
-                        "Obfuscated-" . $newFileName
+                        "Obfuscated-" . $fileName . "-" . $currentTime
                     );
 
                     if (is_bool($folderLocation)) {
                         outputJSON(false, "Unable to extract zip contents");
                     }
 
-                    if (is_dir($folderLocation)) {
-                        $contents = scandir($folderLocation);
+                    if (obfuscateFolder($folderLocation)) {
+                        $zipResult = zipFolder("files/extracted/Obfuscated-" . $fileName . "-" . $currentTime);
 
-                        // foreach ($contents as $item) {
-                        //     if ($item != '.' && $item != '..') {
-                        //         echo $item . "<br>";
-                        //     }
-                        // }
+                        if (is_string($zipResult)) {
+                            outputJSON(
+                                true,
+                                "Obfuscated successfully!",
+                                ["url" => $Obfuscate->base_url . $zipResult]
+                            );
+                        }
 
-                        outputJSON(true, "fetched", ["content" => $contents]);
+                        outputJSON(false, "Unable to zip folder");
                     }
 
                     outputJSON(false, "Directory not found");
@@ -247,7 +334,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $obfuscatedCode = doObfuscate($language, $code);
 
             if (!empty($obfuscatedCode) && $obfuscatedCode != null) {
-                $fileName = "Obfuscated(" . $language . ")-" . date("Y-m-d-His") . "." . $language;
+                $fileName = "Obfuscated(" . $language . ")-" . $currentTime . "." . $language;
 
                 if (file_put_contents("files/single/" . $fileName, $obfuscatedCode)) {
                     outputJSON(
