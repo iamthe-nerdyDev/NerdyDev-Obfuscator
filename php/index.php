@@ -90,7 +90,7 @@ function extractZip($zipFileName, $newFolderName): bool|string
     $zip = new ZipArchive();
 
     if ($zip->open($zipFileName) === true) {
-        $extractPath = 'files/extracted/' . $newFolderName . '/';
+        $extractPath = 'files/extract/' . $newFolderName . '/';
 
         $zip->extractTo($extractPath);
 
@@ -253,7 +253,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $newFileName = $fileName . "-" . $currentTime . "." . $fileExt;
 
             if (strtolower($fileExt) === "zip") {
-                $newZipFileName = "files/zips/" . $newFileName;
+                $newZipFileName = "files/zip/" . $newFileName;
 
                 if (move_uploaded_file($_FILES["file"]["tmp_name"], $newZipFileName)) {
                     $folderLocation = extractZip(
@@ -266,7 +266,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     }
 
                     if (obfuscateFolder($folderLocation)) {
-                        $zipResult = zipFolder("files/extracted/Obfuscated-" . $fileName . "-" . $currentTime);
+                        $zipResult = zipFolder("files/extract/Obfuscated-" . $fileName . "-" . $currentTime);
 
                         if (is_string($zipResult)) {
                             outputJSON(
@@ -285,7 +285,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 outputJSON(false, "Unable to complete process");
             }
 
-            $fullFilePath = "files/single/" . $newFileName;
+            $fullFilePath = "files/single-file/" . $newFileName;
 
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $fullFilePath)) {
 
@@ -299,14 +299,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     if (
                         file_put_contents(
-                            "files/single/" . $obfuscatedFileName,
+                            "files/single-file/" . $obfuscatedFileName,
                             $obfuscatedCode
                         )
                     ) {
                         outputJSON(
                             true,
                             "Obfuscated successfully!",
-                            ["url" => $Obfuscate->base_url . "/files/single/" . $obfuscatedFileName]
+                            ["url" => $Obfuscate->base_url . "/files/single-file/" . $obfuscatedFileName]
                         );
                     }
 
@@ -336,11 +336,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if (!empty($obfuscatedCode) && $obfuscatedCode != null) {
                 $fileName = "Obfuscated(" . $language . ")-" . $currentTime . "." . $language;
 
-                if (file_put_contents("files/single/" . $fileName, $obfuscatedCode)) {
+                if (file_put_contents("files/single-file/" . $fileName, $obfuscatedCode)) {
                     outputJSON(
                         true,
                         "Obfuscated successfully!",
-                        ["url" => $Obfuscate->base_url . "/files/single/" . $fileName]
+                        ["url" => $Obfuscate->base_url . "/files/single-file/" . $fileName]
                     );
                 }
 
