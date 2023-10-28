@@ -23,6 +23,10 @@ import js from "./assets/js.png";
 import html from "./assets/html.png";
 import css from "./assets/css.png";
 
+import github from "./assets/github.png";
+import linkedin from "./assets/linkedin.png";
+import x from "./assets/twitter.png";
+
 import Loader from "./Loader";
 
 import zipIcon from "./assets/zip.png";
@@ -124,6 +128,8 @@ const App = () => {
     const formData = new FormData();
     formData.append("obfuscate", "true");
     formData.append("file", file);
+
+    setIsLoading(true);
 
     try {
       const response = await fetch(VITE_API_ENDPOINT, {
@@ -276,7 +282,7 @@ const App = () => {
                   <option value="html">HTML</option>
                   <option value="css">CSS</option>
                 </select>
-                <textarea
+                {/* <textarea
                   name="code"
                   id="code"
                   rows={10}
@@ -284,6 +290,14 @@ const App = () => {
                   defaultValue={
                     introFns[Math.floor(Math.random() * introFns.length + 0)]
                   }
+                  required
+                /> */}
+                <textarea
+                  name="code"
+                  id="code"
+                  rows={10}
+                  placeholder="Your code here!!"
+                  defaultValue={introFns[1]}
                   required
                 />
                 <div className="d-flex align-center gap-1">
@@ -303,7 +317,7 @@ const App = () => {
               {isLoading ? (
                 <div className="upload-loader">
                   <img src={loaderImage} alt="loading" />
-                  <p>Hang on please. Might take some while :-)</p>
+                  <p>Hang on please. Might take some while!</p>
                 </div>
               ) : (
                 <>
@@ -348,10 +362,25 @@ const App = () => {
       )}
 
       <footer>
-        <hr />
-        <p>
-          Copyright &copy; <strong>{year}</strong>
-        </p>
+        <div className="d-flex align-center">
+          <p>
+            Copyright &copy; <strong>{year}</strong>
+          </p>
+          <div>
+            <a href="https://github.com/iamthe-nerdyDev" target="_blank">
+              <img src={github} alt="github" />
+            </a>
+            <a href="https://twitter.com/iamthe_nerdyDev" target="_blank">
+              <img src={x} alt="x" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/adedeji-morifeoluwa-0aa6361ba"
+              target="_blank"
+            >
+              <img src={linkedin} alt="linkedin" />
+            </a>
+          </div>
+        </div>
       </footer>
     </main>
   );

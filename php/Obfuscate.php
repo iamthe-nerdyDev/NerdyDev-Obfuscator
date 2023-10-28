@@ -113,7 +113,11 @@ class Obfuscate
 
         $packer = new ObfuscatorPHP();
 
-        $obfuscatedCode = $packer->populateCode($code)->pack()->code();
+        $packer->populateCode($code);
+
+        $packer->pack();
+
+        $obfuscatedCode = $packer->code();
 
         return $obfuscatedCode;
     }

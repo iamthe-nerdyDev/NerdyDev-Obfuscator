@@ -109,11 +109,11 @@ function extractZip($zipFileName, $newFolderName)
  * @param  mixed $code
  * @return string|null
  */
-function doObfuscate($language, $code): mixed
+function doObfuscate($language, $code): string
 {
     global $Obfuscate;
 
-    $obfuscatedCode = null;
+    $obfuscatedCode = "";
 
     switch ($language) {
         case "php":
@@ -137,7 +137,7 @@ function doObfuscate($language, $code): mixed
             break;
 
         default:
-            $obfuscatedCode = null;
+            $obfuscatedCode = "";
     }
 
     return $obfuscatedCode;
@@ -272,7 +272,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             outputJSON(
                                 true,
                                 "Obfuscated successfully!",
-                                ["url" => $Obfuscate->base_url . $zipResult]
+                                ["url" => $Obfuscate->base_url . '/' . $zipResult]
                             );
                         }
 

@@ -246,7 +246,7 @@ class ObfuscatorPHP
 	 * @param  mixed $class
 	 * @return array|string|null
 	 */
-	private function generate_var($var, $function = null, $class = null): mixed
+	private function generate_var($var, $function = null, $class = null)
 	{
 		while (empty($string)) {
 			$string = "\$_{$this->random_string()}";
