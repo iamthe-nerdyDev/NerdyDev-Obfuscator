@@ -167,23 +167,28 @@ const App = () => {
     setIsDownloading(true);
 
     try {
-      const response = await fetch(fileURL);
+      const response = await fetch(
+        `${VITE_API_ENDPOINT}/download.php?path=${fileURL}`,
+        {
+          method: "GET",
+        }
+      );
+
       const blob = await response.blob();
 
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.style.display = "none";
-      a.href = url;
+      const url = window.URL.createObjectURL(new Blob([blob]));
 
       let spilttedURL = fileURL.split("/");
-      a.download = spilttedURL[spilttedURL.length - 1];
 
-      document.body.appendChild(a);
-      a.click();
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = spilttedURL[spilttedURL.length - 1];
 
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      document.body.appendChild(link);
+
+      link.click();
+
+      link?.parentNode?.removeChild(link);
     } catch (e) {
       console.error("Unable to download file: ", e);
     } finally {
@@ -208,9 +213,17 @@ const App = () => {
             </h1>
             <p className="info">
               Hurray! You can now click on the button below to download your
-              file. Let me know if you love it or not!
+              file. It should start the download on your device immediately
+              <br />
+              <br />
+              Let me know if you love it or not! I will love to hear from you on
+              how I can improve it to make it better for me and for you.
             </p>
-            <button onClick={downloadFile} disabled={isDownloading}>
+            <button
+              onClick={downloadFile}
+              disabled={isDownloading}
+              style={{ marginBottom: "2rem" }}
+            >
               {isDownloading ? (
                 <div className="d-flex align-center gap-1">
                   <Loader width={24} height={24} />
@@ -282,7 +295,7 @@ const App = () => {
                   <option value="html">HTML</option>
                   <option value="css">CSS</option>
                 </select>
-                {/* <textarea
+                <textarea
                   name="code"
                   id="code"
                   rows={10}
@@ -290,14 +303,6 @@ const App = () => {
                   defaultValue={
                     introFns[Math.floor(Math.random() * introFns.length + 0)]
                   }
-                  required
-                /> */}
-                <textarea
-                  name="code"
-                  id="code"
-                  rows={10}
-                  placeholder="Your code here!!"
-                  defaultValue={introFns[1]}
                   required
                 />
                 <div className="d-flex align-center gap-1">

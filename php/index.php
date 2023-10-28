@@ -272,7 +272,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             outputJSON(
                                 true,
                                 "Obfuscated successfully!",
-                                ["url" => $Obfuscate->base_url . '/' . $zipResult]
+                                ["url" => $zipResult]
                             );
                         }
 
@@ -306,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         outputJSON(
                             true,
                             "Obfuscated successfully!",
-                            ["url" => $Obfuscate->base_url . "/files/single-file/" . $obfuscatedFileName]
+                            ["url" => "files/single-file/" . $obfuscatedFileName]
                         );
                     }
 
@@ -340,7 +340,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     outputJSON(
                         true,
                         "Obfuscated successfully!",
-                        ["url" => $Obfuscate->base_url . "/files/single-file/" . $fileName]
+                        ["url" => "files/single-file/" . $fileName]
                     );
                 }
 
