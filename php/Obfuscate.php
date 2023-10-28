@@ -35,8 +35,8 @@ class Obfuscate
         }
 
         if ($env == "prod") {
-            $this->endpoint = "https://obfuscator-node.onrender.com/obfuscate";
-            $this->base_url = "http://my-url.com";
+            $this->endpoint = "xxxxxxxxxx";
+            $this->base_url = "xxxxxxxxxx";
         }
     }
 
