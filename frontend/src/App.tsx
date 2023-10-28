@@ -190,6 +190,7 @@ const App = () => {
 
       link?.parentNode?.removeChild(link);
     } catch (e) {
+      alert("Unable to complete download!");
       console.error("Unable to download file: ", e);
     } finally {
       setIsDownloading(false);
