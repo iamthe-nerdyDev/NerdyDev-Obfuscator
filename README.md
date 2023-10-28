@@ -2,7 +2,9 @@
 
 A tool used to make your code harder to copy and prevent people from stealing your work. Currently work with PHP, JavaScript, HTML and CSS
 
-![~NerdyDev🥀 Source Code Obfuscator Tool](https://github.com/iamthe-nerdyDev/NerdyDev-Obfuscator/assets/141498118/d90fc94d-0754-4518-a986-f86bb30a2de1)
+| ![~NerdyDev🥀 Source Code Obfuscator Tool](https://github.com/iamthe-nerdyDev/NerdyDev-Obfuscator/assets/141498118/d90fc94d-0754-4518-a986-f86bb30a2de1) | 
+|:--:| 
+| *~NerdyDev🥀 Source Code Obfuscator Tool* |
 
 ## Project Status
 
