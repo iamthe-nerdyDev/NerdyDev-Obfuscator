@@ -288,13 +288,14 @@ hr {
 
 button {
   background-color: skyblue;
-  border: 2px solid #000;
+  border: 3px solid #000;
   border-radius: 100px;
   padding: 0.9rem 2.3rem;
   font-weight: 800;
   cursor: pointer;
   font-size: 0.8rem;
   text-transform: uppercase;
+  color: #000;
 }
 
 button:disabled {
@@ -341,7 +342,7 @@ footer > div > div a:nth-child(3) img {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  margin-bottom: 4rem;
+  margin-bottom: 4.5rem;
 }
 
 .back-btn div {
@@ -370,7 +371,7 @@ footer > div > div a:nth-child(3) img {
   border: 1px solid #ccc;
   opacity: 0.8;
   padding: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
 }
 
 .download-area h1 {
@@ -390,7 +391,7 @@ footer > div > div a:nth-child(3) img {
   font-size: 0.96rem;
   width: 100%;
   max-width: 40rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.4rem;
   line-height: 190%;
   color: #555;
 }

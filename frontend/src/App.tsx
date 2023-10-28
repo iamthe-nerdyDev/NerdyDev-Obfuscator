@@ -204,11 +204,11 @@ const App = () => {
           <div>
             <img src={logo} alt="anonymous" />
             <h1>
-              Your <span>Obfuscated</span> file is ready!
+              Your file is <span>ready!</span>
             </h1>
             <p className="info">
               Hurray! You can now click on the button below to download your
-              file. Let us know if you love it or not!
+              file. Let me know if you love it or not!
             </p>
             <button onClick={downloadFile} disabled={isDownloading}>
               {isDownloading ? (
